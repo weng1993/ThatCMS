@@ -36,20 +36,32 @@ class Post_model extends CI_Model {
                 }
             }
         }
+    
+        public function edit_post($pid = FALSE)
+        {
+                $data = array(
+                    'title' => $this->input->post('title'),
+                    //'slug' => $slug,
+                    'text' => $this->input->post('text')
+                );
+
+                $this->db->where('pid', $pid);
+                $this->db->update('posts', $data);
+                return $this->db->update('posts', $data);
+        }
+    
         public function set_post($uid = FALSE)
         {
-            $this->load->helper('url');
+                //$slug = url_title($this->input->post('title'), 'dash', TRUE);
 
-            //$slug = url_title($this->input->post('title'), 'dash', TRUE);
+                $data = array(
+                    'title' => $this->input->post('title'),
+                    //'slug' => $slug,
+                    'uid' => $uid,
+                    'text' => $this->input->post('text')
+                );
 
-            $data = array(
-                'title' => $this->input->post('title'),
-                //'slug' => $slug,
-                'uid' => $uid,
-                'text' => $this->input->post('text')
-            );
-
-            return $this->db->insert('posts', $data);
+                return $this->db->insert('posts', $data);
         }
         
     
